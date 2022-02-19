@@ -1,20 +1,18 @@
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+import '@expo/match-media';
+import { useMediaQuery } from "react-responsive";
+import MobileComponent from './mobile';
+import DesktopComponent from './desktop';
+import { NavigationContainer } from '@react-navigation/native';
 
 export default function App() {
+  const isTabletOrMobileDevice = useMediaQuery({
+    maxDeviceWidth: 1224,    // alternatively...    query: "(max-device-width: 1224px)"  
+  });
   return (
-    <View style={styles.container}>
-      <Text>Open up App.tsx to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
-  );
+    <NavigationContainer>
+      { isTabletOrMobileDevice ? <MobileComponent /> : <DesktopComponent /> }
+    </NavigationContainer>
+  )
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
+
